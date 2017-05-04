@@ -1,8 +1,5 @@
 # OHT Rina Registration
 
-[![Build status](https://github.com/AgileSphereOHT/oht-rina-registration/badges/master/build.svg)](https://github.com/AgileSphereOHT/oht-rina-registration/commits/master)
-[![CE coverage report](https://github.com/AgileSphereOHT/oht-rina-registration/badges/master/coverage.svg)](https://github.com/AgileSphereOHT/oht-rina-registration)
-
 # GitLab
 https://oh-alpha-confluence.atlassian.net/wiki/display/OHA/Accessing+project+repos
 

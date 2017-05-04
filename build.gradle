@@ -31,7 +31,7 @@ allprojects {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'fpm-packaging'
     apply plugin: 'org.owasp.dependencycheck'
-    version = "1.00-${candidate}"
+    version = "1.0.0-${candidate}"
     archivesBaseName = 'oht-rina-registration'
     group = 'uk.doh.oht'
     sourceCompatibility = 1.8
