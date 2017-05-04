@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import uk.doh.oht.rina.registration.domain.bucs.BucData;
 import uk.doh.oht.rina.registration.service.RinaExistingCaseService;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class ExistingCaseControllerTest {
     @Mock
     private RinaExistingCaseService rinaExistingCaseService;
 
+    BucData bucData = new BucData();
     private final Map<String, Object> mapData = new HashMap<>();
     private final List<Map<String, Object>> listData = new ArrayList<>();
 
@@ -49,6 +51,7 @@ public class ExistingCaseControllerTest {
                 .build();
         mapData.put(CASE_ID_VALUE, "{test-data}");
         listData.add(mapData);
+        bucData.setProcessDefinitionName("test");
     }
 
     @Test
@@ -59,18 +62,18 @@ public class ExistingCaseControllerTest {
                 .andExpect(handler().methodName("getDocument"))
                 .andExpect(handler().handlerType(ExistingCaseController.class))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().string(mapData.get(CASE_ID_VALUE).toString()));
+                .andExpect(content().string("{\"1\":\"{test-data}\"}"));
     }
 
     @Test
     public void testGetCase() throws Exception {
-        given(rinaExistingCaseService.getCase(anyString())).willReturn(mapData);
+        given(rinaExistingCaseService.getCase(anyString())).willReturn(bucData);
 
         mockMvc.perform(MockMvcRequestBuilders.get(REST_GET_CASE_URI + CASE_ID_VALUE))
                 .andExpect(handler().methodName("getCase"))
                 .andExpect(handler().handlerType(ExistingCaseController.class))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().string(mapData.get(CASE_ID_VALUE).toString()));
+                .andExpect(content().string("{\"creator\":null,\"documents\":null,\"subject\":null,\"processDefinitionName\":\"test\",\"sensitive\":null,\"lastUpdate\":null,\"id\":null,\"applicationRoleId\":null,\"actions\":null,\"startDate\":null,\"processDefinitionVersion\":null,\"properties\":null,\"participants\":null,\"status\":null}"));
     }
 
     @Test

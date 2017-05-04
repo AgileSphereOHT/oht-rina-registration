@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uk.doh.oht.rina.registration.domain.bucs.BucData;
 import uk.doh.oht.rina.registration.service.RinaExistingCaseService;
 
 import javax.inject.Inject;
@@ -28,7 +29,7 @@ public class ExistingCaseController {
             value = "Get a caseId",
             notes = "Send a request to return case details for caseId in RINA sub system"
     )
-    public ResponseEntity<Map<String, Object>> getCase(
+    public ResponseEntity<BucData> getCase(
             @ApiParam(name = "caseId", value = "caseId of case to be returned from RINA sub system")
             @PathVariable final String caseId) {
         return ResponseEntity.ok().body(rinaExistingCaseService.getCase(caseId));

@@ -16,9 +16,15 @@ public class RestProperties {
     private String restRootPath;
     private String restRootCasePath;
     private String restRootDocumentPath;
+    private String restRootNotificationPath;
 
     public String buildCasePath() {
         StringBuilder stringBuilder = new StringBuilder();
         return stringBuilder.append(restUrl).append(":").append(restPort).append(restRootPath).append(restRootCasePath).toString();
+    }
+
+    public String buildNotificationPath() {
+        StringBuilder stringBuilder = new StringBuilder();
+        return stringBuilder.append(restUrl).append(":").append(restPort).append(restRootPath).append(restRootNotificationPath).toString();
     }
 }
