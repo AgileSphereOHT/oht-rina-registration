@@ -35,6 +35,7 @@ public class RinaSearchResultsService {
         for (final SearchResults searchResults : originalResults) {
             //process results open check if has S073 and is received
             //look for notifications to get due date
+
             filterWithNotifications(searchResults, filteredSearchResults);
         }
         return filteredSearchResults;
