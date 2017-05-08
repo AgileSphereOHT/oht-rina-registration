@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Conversation implements Serializable {
     private String id;
-    private String date;
+    private Date date;
     private String versionId;
     private List<UserMessage> userMessages;
     private List<Participant> participants;

@@ -44,8 +44,9 @@ public class RinaSearchResultsService {
         return filteredOpenCaseSearchResults;
     }
 
-    private Boolean filterWithNotifications(final Date date, final OpenCaseSearchResult openCaseSearchResult,
-                                         final List<OpenCaseSearchResult> filteredOpenCaseSearchResults) {
+    private Boolean filterWithNotifications(final Date date,
+                                            final OpenCaseSearchResult openCaseSearchResult,
+                                            final List<OpenCaseSearchResult> filteredOpenCaseSearchResults) {
 
         //convoluted way but you can't get notifications from the caseId itself you need a date
         //so get all timeslots for notifications on case to get dates loop through those to check for
@@ -66,7 +67,7 @@ public class RinaSearchResultsService {
                                      final List<OpenCaseSearchResult> filteredOpenCaseSearchResults) {
         final List<TimeSlot> timeSlots = rinaNotificationService.retrieveTimeSlotsForCase(openCaseSearchResult.getId());
         for (final TimeSlot timeSlot : timeSlots) {
-            Boolean found = filterWithNotifications(timeSlot.getDate(), openCaseSearchResult, filteredOpenCaseSearchResults);
+            final Boolean found = filterWithNotifications(timeSlot.getDate(), openCaseSearchResult, filteredOpenCaseSearchResults);
             if (found) {
                 break;
             }

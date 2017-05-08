@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import uk.doh.oht.rina.registration.config.RestProperties;
 import uk.doh.oht.rina.registration.domain.bucs.BucData;
+import uk.doh.oht.rina.registration.domain.documents.Document;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,9 +75,9 @@ public class RinaExistingCaseServiceTest {
 
     @Test
     public void testGetDocument() throws Exception {
-        final ResponseEntity<Map<String, Object>> responseEntity = new ResponseEntity(mapData, HttpStatus.OK);
+        final ResponseEntity<Document> responseEntity = new ResponseEntity(mapData, HttpStatus.OK);
 
-        given(restTemplate.exchange(anyString(), Mockito.<HttpMethod> any(), Mockito.<HttpEntity<String>> any(), Matchers.<ParameterizedTypeReference<Map<String, Object>>> any())).willReturn(responseEntity);
+        given(restTemplate.exchange(anyString(), Mockito.<HttpMethod> any(), Mockito.<HttpEntity<String>> any(), Matchers.<ParameterizedTypeReference<Document>> any())).willReturn(responseEntity);
         assertThat(rinaExistingCaseService.getDocument(CASE_ID_VALUE, DOCUMENT_ID_VALUE), is(mapData));
     }
 }

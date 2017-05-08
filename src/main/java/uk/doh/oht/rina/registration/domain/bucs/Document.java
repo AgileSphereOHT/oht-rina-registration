@@ -6,6 +6,7 @@ import lombok.Data;
 import uk.doh.oht.rina.registration.domain.common.Creator;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,14 +25,14 @@ public class Document implements Serializable {
     private String mimeType;
     private Integer subProcessId;
     private String type;
-    private String creationDate;
+    private Date creationDate;
     private List<Conversation> conversations;
     private Boolean isUnarchive;
     private String typeVersion;
     private Boolean allowsAttachments;
     private List<Version> versions;
     private Boolean hasBusinessValidation;
-    private String lastUpdate;
+    private Date lastUpdate;
     private String parentType;
     private String id;
     private String parentDocumentId;

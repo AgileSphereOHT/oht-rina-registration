@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by peterwhitehead on 03/05/2017.
@@ -11,7 +12,7 @@ import java.io.Serializable;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Sender implements Serializable {
-    private String activeSince;
+    private Date activeSince;
     private String registryNumber;
     private String acronym;
     private String countryCode;

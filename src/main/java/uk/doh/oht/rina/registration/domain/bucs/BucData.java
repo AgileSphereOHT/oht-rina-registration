@@ -7,6 +7,7 @@ import uk.doh.oht.rina.registration.domain.common.Creator;
 import uk.doh.oht.rina.registration.domain.common.Subject;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,11 +21,11 @@ public class BucData implements Serializable {
     private Subject subject;
     private String processDefinitionName;
     private Boolean sensitive;
-    private String lastUpdate;
+    private Date lastUpdate;
     private String id;
     private String applicationRoleId;
     private List<Action> actions;
-    private String startDate;
+    private Date startDate;
     private String processDefinitionVersion;
     private Properties properties;
     private List<Participant> participants;
