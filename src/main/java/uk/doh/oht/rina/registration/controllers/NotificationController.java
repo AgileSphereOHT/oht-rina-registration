@@ -10,6 +10,7 @@ import uk.doh.oht.rina.registration.domain.notifications.Notification;
 import uk.doh.oht.rina.registration.service.RinaNotificationService;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ public class NotificationController {
             value = "Gets a list of all notifications for caseId",
             notes = "Send a request to return notifications for caseId in RINA sub system"
     )
-    public ResponseEntity<List<Notification>> retrieveNotificationsForCase(@RequestParam String caseId) {
-        return ResponseEntity.ok().body(rinaNotificationService.retrieveNotificationsForCase(caseId));
+    public ResponseEntity<List<Notification>> retrieveNotificationsForCase(@RequestParam String caseId, @RequestParam Date date) {
+        return ResponseEntity.ok().body(rinaNotificationService.retrieveNotificationsForCase(caseId, date));
     }
 }

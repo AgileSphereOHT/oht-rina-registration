@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import uk.doh.oht.rina.registration.config.RestProperties;
 import uk.doh.oht.rina.registration.domain.bucs.BucData;
-import uk.doh.oht.rina.registration.domain.SearchResults;
+import uk.doh.oht.rina.registration.domain.SearchResult;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -53,10 +53,10 @@ public class RinaExistingCaseService {
         return data.getBody();
     }
 
-    public List<SearchResults> searchCases(final String searchText) {
+    public List<SearchResult> searchCases(final String searchText) {
         final HttpHeaders headers = serviceHelper.createTokenHeader();
         final HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        final ResponseEntity<List<SearchResults>> data = restTemplate.exchange(restProperties.buildCasePath() + "?searchText=" + searchText, HttpMethod.GET, entity, new ParameterizedTypeReference<List<SearchResults>>() {});
+        final ResponseEntity<List<SearchResult>> data = restTemplate.exchange(restProperties.buildCasePath() + "?searchText=" + searchText, HttpMethod.GET, entity, new ParameterizedTypeReference<List<SearchResult>>() {});
         return data.getBody();
     }
 

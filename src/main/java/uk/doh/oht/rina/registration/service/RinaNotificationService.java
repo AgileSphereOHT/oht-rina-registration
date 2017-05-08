@@ -1,14 +1,17 @@
 package uk.doh.oht.rina.registration.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import uk.doh.oht.rina.registration.config.RestProperties;
+import uk.doh.oht.rina.registration.domain.TimeSlot;
 import uk.doh.oht.rina.registration.domain.notifications.Notification;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,14 +40,29 @@ public class RinaNotificationService {
         return data.getBody();
     }
 
-    public List<Notification> retrieveNotificationsForCase(final String caseId) {
+    public List<Notification> retrieveNotificationsForCase(final String caseId, final Date date) {
         final HttpHeaders headers = serviceHelper.createTokenHeader();
         final HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        final ResponseEntity<List<Notification>> data = restTemplate.exchange(restProperties.buildNotificationPath() + "?caseId=" + caseId, HttpMethod.GET, entity, new ParameterizedTypeReference<List<Notification>>() {});
+        final ResponseEntity<List<Notification>> data = restTemplate.exchange(
+                restProperties.buildNotificationPath() + "?date=" + convertDateToString(date) + "&caseId=" + caseId, HttpMethod.GET, entity,
+                new ParameterizedTypeReference<List<Notification>>() {});
         return data.getBody();
+    }
+
+    private String convertDateToString(final Date date) {
+        return DateFormatUtils.format(date, "yyyy-MM-dd");
     }
 
     public Boolean updateNotification(final String notificationId) {
         return Boolean.TRUE;
+    }
+
+    public List<TimeSlot> retrieveTimeSlotsForCase(final String caseId) {
+        final HttpHeaders headers = serviceHelper.createTokenHeader();
+        final HttpEntity<String> entity = new HttpEntity<>(null, headers);
+        final ResponseEntity<List<TimeSlot>> data = restTemplate.exchange(
+                restProperties.buildNotificationPath() + "TimeSlots?caseId=" + caseId, HttpMethod.GET, entity,
+                new ParameterizedTypeReference<List<TimeSlot>>() {});
+        return data.getBody();
     }
 }

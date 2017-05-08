@@ -2,11 +2,14 @@ package uk.doh.oht.rina.registration.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import uk.doh.oht.rina.registration.domain.SearchResults;
+import uk.doh.oht.rina.registration.domain.SearchResult;
+import uk.doh.oht.rina.registration.domain.TimeSlot;
 import uk.doh.oht.rina.registration.domain.notifications.Notification;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,28 +29,45 @@ public class RinaSearchResultsService {
         this.rinaNotificationService = rinaNotificationService;
     }
 
-    public List<SearchResults> searchCases(final String searchText) {
+    public List<SearchResult> searchCases(final String searchText) {
         return filterReceivedS073Cases(rinaExistingCaseService.searchCases(searchText));
     }
 
-    private List<SearchResults> filterReceivedS073Cases(List<SearchResults> originalResults) {
-        final List<SearchResults> filteredSearchResults = new ArrayList<>();
-        for (final SearchResults searchResults : originalResults) {
+    private List<SearchResult> filterReceivedS073Cases(List<SearchResult> originalResults) {
+        final List<SearchResult> filteredSearchResults = new ArrayList<>();
+        for (final SearchResult searchResult : originalResults) {
             //process results open check if has S073 and is received
             //look for notifications to get due date
-            filterWithNotifications(searchResults, filteredSearchResults);
+            filterWithTimeSlots(searchResult, filteredSearchResults);
         }
+        filteredSearchResults.sort(Comparator.comparing(SearchResult::getDueDate));
         return filteredSearchResults;
     }
 
-    private void filterWithNotifications(final SearchResults searchResults,
-                                         final List<SearchResults> filteredSearchResults) {
-        final List<Notification> notifications = rinaNotificationService.retrieveNotificationsForCase(searchResults.getId());
+    private Boolean filterWithNotifications(final Date date, final SearchResult searchResult,
+                                         final List<SearchResult> filteredSearchResults) {
+
+        //convoluted way but you can't get notifications from the caseId itself you need a date
+        //so get all timeslots for notifications on case to get dates loop through those to check for
+        //S073
+        final List<Notification> notifications = rinaNotificationService.retrieveNotificationsForCase(searchResult.getId(), date);
         for (final Notification notification : notifications) {
             if (notification.getDocument().getType().equals(REGISTER_SED)) {
-                searchResults.setDueDate(notification.getDueDate());
-                searchResults.setCountryCode(notification.getCreator().getOrganisation().getCountryCode());
-                filteredSearchResults.add(searchResults);
+                searchResult.setDueDate(notification.getDueDate());
+                searchResult.setCountryCode(notification.getCreator().getOrganisation().getCountryCode());
+                filteredSearchResults.add(searchResult);
+                return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;
+    }
+
+    private void filterWithTimeSlots(final SearchResult searchResult,
+                                     final List<SearchResult> filteredSearchResults) {
+        final List<TimeSlot> timeSlots = rinaNotificationService.retrieveTimeSlotsForCase(searchResult.getId());
+        for (final TimeSlot timeSlot : timeSlots) {
+            Boolean found = filterWithNotifications(timeSlot.getDate(), searchResult, filteredSearchResults);
+            if (found) {
                 break;
             }
         }

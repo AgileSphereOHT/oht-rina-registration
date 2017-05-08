@@ -27,5 +27,4 @@ public class ServiceHelper {
         headers.set("Authorization", "Bearer " + oAuth2AccessToken.getValue());
         return headers;
     }
-
 }

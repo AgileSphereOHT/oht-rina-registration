@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SearchResults implements Serializable {
+public class SearchResult implements Serializable {
     private String processDefinitionId;
     private Traits traits;
     private String id;
