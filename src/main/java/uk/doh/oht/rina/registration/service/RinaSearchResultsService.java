@@ -2,7 +2,7 @@ package uk.doh.oht.rina.registration.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import uk.doh.oht.rina.registration.domain.SearchResult;
+import uk.doh.oht.rina.registration.domain.OpenCaseSearchResult;
 import uk.doh.oht.rina.registration.domain.TimeSlot;
 import uk.doh.oht.rina.registration.domain.notifications.Notification;
 
@@ -29,44 +29,44 @@ public class RinaSearchResultsService {
         this.rinaNotificationService = rinaNotificationService;
     }
 
-    public List<SearchResult> searchCases(final String searchText) {
+    public List<OpenCaseSearchResult> searchCases(final String searchText) {
         return filterReceivedS073Cases(rinaExistingCaseService.searchCases(searchText));
     }
 
-    private List<SearchResult> filterReceivedS073Cases(List<SearchResult> originalResults) {
-        final List<SearchResult> filteredSearchResults = new ArrayList<>();
-        for (final SearchResult searchResult : originalResults) {
+    private List<OpenCaseSearchResult> filterReceivedS073Cases(List<OpenCaseSearchResult> originalResults) {
+        final List<OpenCaseSearchResult> filteredOpenCaseSearchResults = new ArrayList<>();
+        for (final OpenCaseSearchResult openCaseSearchResult : originalResults) {
             //process results open check if has S073 and is received
             //look for notifications to get due date
-            filterWithTimeSlots(searchResult, filteredSearchResults);
+            filterWithTimeSlots(openCaseSearchResult, filteredOpenCaseSearchResults);
         }
-        filteredSearchResults.sort(Comparator.comparing(SearchResult::getDueDate));
-        return filteredSearchResults;
+        filteredOpenCaseSearchResults.sort(Comparator.comparing(OpenCaseSearchResult::getDueDate));
+        return filteredOpenCaseSearchResults;
     }
 
-    private Boolean filterWithNotifications(final Date date, final SearchResult searchResult,
-                                         final List<SearchResult> filteredSearchResults) {
+    private Boolean filterWithNotifications(final Date date, final OpenCaseSearchResult openCaseSearchResult,
+                                         final List<OpenCaseSearchResult> filteredOpenCaseSearchResults) {
 
         //convoluted way but you can't get notifications from the caseId itself you need a date
         //so get all timeslots for notifications on case to get dates loop through those to check for
         //S073
-        final List<Notification> notifications = rinaNotificationService.retrieveNotificationsForCase(searchResult.getId(), date);
+        final List<Notification> notifications = rinaNotificationService.retrieveNotificationsForCase(openCaseSearchResult.getId(), date);
         for (final Notification notification : notifications) {
             if (notification.getDocument().getType().equals(REGISTER_SED)) {
-                searchResult.setDueDate(notification.getDueDate());
-                searchResult.setCountryCode(notification.getCreator().getOrganisation().getCountryCode());
-                filteredSearchResults.add(searchResult);
+                openCaseSearchResult.setDueDate(notification.getDueDate());
+                openCaseSearchResult.setCountryCode(notification.getCreator().getOrganisation().getCountryCode());
+                filteredOpenCaseSearchResults.add(openCaseSearchResult);
                 return Boolean.TRUE;
             }
         }
         return Boolean.FALSE;
     }
 
-    private void filterWithTimeSlots(final SearchResult searchResult,
-                                     final List<SearchResult> filteredSearchResults) {
-        final List<TimeSlot> timeSlots = rinaNotificationService.retrieveTimeSlotsForCase(searchResult.getId());
+    private void filterWithTimeSlots(final OpenCaseSearchResult openCaseSearchResult,
+                                     final List<OpenCaseSearchResult> filteredOpenCaseSearchResults) {
+        final List<TimeSlot> timeSlots = rinaNotificationService.retrieveTimeSlotsForCase(openCaseSearchResult.getId());
         for (final TimeSlot timeSlot : timeSlots) {
-            Boolean found = filterWithNotifications(timeSlot.getDate(), searchResult, filteredSearchResults);
+            Boolean found = filterWithNotifications(timeSlot.getDate(), openCaseSearchResult, filteredOpenCaseSearchResults);
             if (found) {
                 break;
             }
