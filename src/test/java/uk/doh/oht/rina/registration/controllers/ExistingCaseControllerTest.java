@@ -40,7 +40,7 @@ public class ExistingCaseControllerTest {
     @Mock
     private RinaExistingCaseService rinaExistingCaseService;
 
-    BucData bucData = new BucData();
+    private BucData bucData = new BucData();
     private final Map<String, Object> mapData = new HashMap<>();
     private final List<Map<String, Object>> listData = new ArrayList<>();
 
