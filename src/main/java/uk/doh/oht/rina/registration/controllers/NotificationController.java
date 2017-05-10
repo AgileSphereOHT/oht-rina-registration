@@ -30,7 +30,7 @@ public class NotificationController {
             value = "Gets a list of all notifications for date",
             notes = "Send a request to return notifications for date in RINA sub system"
     )
-    public ResponseEntity<List<Notification>> retrieveNotificationsForDate(@RequestParam String date) {
+    public ResponseEntity<List<Notification>> retrieveNotificationsForDate(@RequestParam Date date) {
         return ResponseEntity.ok().body(rinaNotificationService.retrieveNotificationsForDate(date));
     }
 

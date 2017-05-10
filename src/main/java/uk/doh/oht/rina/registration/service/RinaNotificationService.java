@@ -33,10 +33,10 @@ public class RinaNotificationService {
         this.restProperties = restProperties;
     }
 
-    public List<Notification> retrieveNotificationsForDate(final String date) {
+    public List<Notification> retrieveNotificationsForDate(final Date date) {
         final HttpHeaders headers = serviceHelper.createTokenHeader();
         final HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        final ResponseEntity<List<Notification>> data = restTemplate.exchange(restProperties.buildNotificationPath() + "?date=" + date, HttpMethod.GET, entity, new ParameterizedTypeReference<List<Notification>>() {});
+        final ResponseEntity<List<Notification>> data = restTemplate.exchange(restProperties.buildNotificationPath() + "?date=" + convertDateToString(date), HttpMethod.GET, entity, new ParameterizedTypeReference<List<Notification>>() {});
         return data.getBody();
     }
 
@@ -54,6 +54,7 @@ public class RinaNotificationService {
     }
 
     public Boolean updateNotification(final String notificationId) {
+        log.debug("updateNotification notificationId:{}", notificationId);
         return Boolean.TRUE;
     }
 
