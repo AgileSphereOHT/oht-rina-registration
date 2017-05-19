@@ -6,9 +6,9 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import uk.doh.oht.rina.domain.TimeSlot;
+import uk.doh.oht.rina.domain.notifications.Notification;
 import uk.doh.oht.rina.registration.config.RestProperties;
-import uk.doh.oht.rina.registration.domain.TimeSlot;
-import uk.doh.oht.rina.registration.domain.notifications.Notification;
 
 import javax.inject.Inject;
 import java.util.Date;

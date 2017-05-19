@@ -14,8 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import uk.doh.oht.rina.registration.config.RestProperties;
-import uk.doh.oht.rina.registration.domain.TimeSlot;
-import uk.doh.oht.rina.registration.domain.notifications.Notification;
+import uk.doh.oht.rina.domain.TimeSlot;
+import uk.doh.oht.rina.domain.notifications.Notification;
 
 import java.util.ArrayList;
 import java.util.Date;

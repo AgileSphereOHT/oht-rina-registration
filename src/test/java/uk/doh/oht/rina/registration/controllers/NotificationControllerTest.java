@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import uk.doh.oht.rina.registration.domain.notifications.Notification;
+import uk.doh.oht.rina.domain.notifications.Notification;
 import uk.doh.oht.rina.registration.service.RinaNotificationService;
 
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class NotificationControllerTest {
                 .andExpect(handler().methodName("retrieveNotificationsForDate"))
                 .andExpect(handler().handlerType(NotificationController.class))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().string("[{\"severity\":null,\"reason\":null,\"creator\":null,\"dueDate\":null,\"document\":null,\"isRead\":null,\"slot\":null,\"assignmentRequest\":null,\"creationDate\":null,\"type\":null,\"caseData\":null,\"expanded\":null,\"responsibleParties\":null,\"sourceType\":null,\"lastUpdate\":null,\"caseId\":\"1\",\"isSelected\":null,\"failureReason\":null,\"id\":null,\"typeObj\":null,\"isFilteredOut\":null,\"category\":null,\"status\":null,\"severityObj\":null}]"));
+                .andExpect(content().string("[{\"serialVersionUID\":1,\"severity\":null,\"reason\":null,\"creator\":null,\"dueDate\":null,\"document\":null,\"isRead\":null,\"slot\":null,\"assignmentRequest\":null,\"creationDate\":null,\"type\":null,\"caseData\":null,\"expanded\":null,\"responsibleParties\":null,\"sourceType\":null,\"lastUpdate\":null,\"caseId\":\"1\",\"isSelected\":null,\"failureReason\":null,\"id\":null,\"typeObj\":null,\"isFilteredOut\":null,\"category\":null,\"status\":null,\"severityObj\":null}]"));
 
     }
 
@@ -74,6 +74,6 @@ public class NotificationControllerTest {
                 .andExpect(handler().methodName("retrieveNotificationsForCase"))
                 .andExpect(handler().handlerType(NotificationController.class))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().string("[{\"severity\":null,\"reason\":null,\"creator\":null,\"dueDate\":null,\"document\":null,\"isRead\":null,\"slot\":null,\"assignmentRequest\":null,\"creationDate\":null,\"type\":null,\"caseData\":null,\"expanded\":null,\"responsibleParties\":null,\"sourceType\":null,\"lastUpdate\":null,\"caseId\":\"1\",\"isSelected\":null,\"failureReason\":null,\"id\":null,\"typeObj\":null,\"isFilteredOut\":null,\"category\":null,\"status\":null,\"severityObj\":null}]"));
+                .andExpect(content().string("[{\"serialVersionUID\":1,\"severity\":null,\"reason\":null,\"creator\":null,\"dueDate\":null,\"document\":null,\"isRead\":null,\"slot\":null,\"assignmentRequest\":null,\"creationDate\":null,\"type\":null,\"caseData\":null,\"expanded\":null,\"responsibleParties\":null,\"sourceType\":null,\"lastUpdate\":null,\"caseId\":\"1\",\"isSelected\":null,\"failureReason\":null,\"id\":null,\"typeObj\":null,\"isFilteredOut\":null,\"category\":null,\"status\":null,\"severityObj\":null}]"));
     }
 }

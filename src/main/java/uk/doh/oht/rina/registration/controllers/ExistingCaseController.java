@@ -5,7 +5,8 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import uk.doh.oht.rina.registration.domain.bucs.BucData;
+import uk.doh.oht.rina.domain.bucs.BucData;
+import uk.doh.oht.rina.domain.documents.S073;
 import uk.doh.oht.rina.registration.service.RinaExistingCaseService;
 
 import javax.inject.Inject;
@@ -55,5 +56,18 @@ public class ExistingCaseController {
     )
     public ResponseEntity<List<Map<String, Object>>> getAllCases() {
         return ResponseEntity.ok().body(rinaExistingCaseService.getAllCases());
+    }
+
+    @GetMapping(value = "/rina-registration/get-s073-document/{caseId}/{documentId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(
+            value = "Get a case document",
+            notes = "Send a request to return case document details for caseId/documentId in RINA sub system"
+    )
+    public ResponseEntity<S073> getS073Document(
+            @ApiParam(name = "caseId", value = "caseId of case to be returned from RINA sub system")
+            @PathVariable final String caseId,
+            @ApiParam(name = "documentId", value = "documentId of document in case to be returned from RINA sub system")
+            @PathVariable final String documentId) {
+        return ResponseEntity.ok().body(rinaExistingCaseService.getS073Document(caseId, documentId));
     }
 }

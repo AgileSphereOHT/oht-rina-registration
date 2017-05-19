@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import uk.doh.oht.rina.registration.domain.OpenCaseSearchResult;
+import uk.doh.oht.rina.domain.OpenCaseSearchResult;
 import uk.doh.oht.rina.registration.service.RinaSearchResultsService;
 
 import javax.inject.Inject;

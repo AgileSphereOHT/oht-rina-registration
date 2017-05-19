@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import uk.doh.oht.rina.registration.exceptions.RinaRegistrationException;
 
 /**
  * Created by peterwhitehead on 28/04/2017.
@@ -23,8 +22,9 @@ public class GlobalControllerExceptionHandler {
      * thrown, which generate 500 responses for the client.
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(RinaRegistrationException.class)
-    public void handleValidationFailure() {
+    @ExceptionHandler(Exception.class)
+    public void handleValidationFailure(Exception e) {
+        log.error("{}", e);
         // Nothing to do
     }
 }

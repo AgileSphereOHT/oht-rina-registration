@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import uk.doh.oht.rina.registration.domain.bucs.BucData;
+import uk.doh.oht.rina.domain.bucs.BucData;
 import uk.doh.oht.rina.registration.domain.CustomerDetails;
 import uk.doh.oht.rina.registration.service.RinaExistingCaseService;
 

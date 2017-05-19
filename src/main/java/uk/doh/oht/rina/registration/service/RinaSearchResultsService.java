@@ -2,9 +2,9 @@ package uk.doh.oht.rina.registration.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import uk.doh.oht.rina.registration.domain.OpenCaseSearchResult;
-import uk.doh.oht.rina.registration.domain.TimeSlot;
-import uk.doh.oht.rina.registration.domain.notifications.Notification;
+import uk.doh.oht.rina.domain.OpenCaseSearchResult;
+import uk.doh.oht.rina.domain.TimeSlot;
+import uk.doh.oht.rina.domain.notifications.Notification;
 
 import javax.inject.Inject;
 import java.util.ArrayList;

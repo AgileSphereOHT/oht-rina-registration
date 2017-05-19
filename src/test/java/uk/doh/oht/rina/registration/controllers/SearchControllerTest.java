@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import uk.doh.oht.rina.registration.domain.OpenCaseSearchResult;
+import uk.doh.oht.rina.domain.OpenCaseSearchResult;
 import uk.doh.oht.rina.registration.service.RinaSearchResultsService;
 
 import java.util.ArrayList;
@@ -55,6 +55,6 @@ public class SearchControllerTest {
                 .andExpect(handler().methodName("searchCases"))
                 .andExpect(handler().handlerType(SearchController.class))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().string("[{\"processDefinitionId\":null,\"traits\":null,\"id\":null,\"applicationRoleId\":null,\"properties\":null,\"status\":null,\"dueDate\":null,\"countryCode\":\"UK\"}]"));
+                .andExpect(content().string("[{\"serialVersionUID\":1,\"processDefinitionId\":null,\"traits\":null,\"id\":null,\"applicationRoleId\":null,\"properties\":null,\"status\":null,\"dueDate\":null,\"countryCode\":\"UK\"}]"));
     }
 }

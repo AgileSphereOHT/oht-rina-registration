@@ -6,12 +6,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import uk.doh.oht.rina.registration.domain.OpenCaseSearchResult;
-import uk.doh.oht.rina.registration.domain.TimeSlot;
-import uk.doh.oht.rina.registration.domain.common.Creator;
-import uk.doh.oht.rina.registration.domain.common.Organisation;
-import uk.doh.oht.rina.registration.domain.notifications.Document;
-import uk.doh.oht.rina.registration.domain.notifications.Notification;
+import uk.doh.oht.rina.domain.OpenCaseSearchResult;
+import uk.doh.oht.rina.domain.TimeSlot;
+import uk.doh.oht.rina.domain.common.Creator;
+import uk.doh.oht.rina.domain.common.Organisation;
+import uk.doh.oht.rina.domain.notifications.Document;
+import uk.doh.oht.rina.domain.notifications.Notification;
 
 import java.util.ArrayList;
 import java.util.Date;

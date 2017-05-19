@@ -9,7 +9,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import uk.doh.oht.rina.registration.domain.bucs.BucData;
+import uk.doh.oht.rina.domain.bucs.BucData;
+import uk.doh.oht.rina.domain.documents.S073;
 import uk.doh.oht.rina.registration.service.RinaExistingCaseService;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ExistingCaseControllerTest {
     private final static String REST_GET_CASE_URI = "/rina-registration/get-case/";
     private final static String REST_GET_DOCUMENT_URI = "/rina-registration/get-document/";
+    private final static String REST_GET_S073_DOCUMENT_URI = "/rina-registration/get-s073-document/";
     private final static String REST_GET_ALL_CASES_URI = "/rina-registration/get-all-cases";
     private final static String CASE_ID_VALUE = "1";
     private final static String DOCUMENT_ID_VALUE = "1";
@@ -41,6 +43,7 @@ public class ExistingCaseControllerTest {
     private RinaExistingCaseService rinaExistingCaseService;
 
     private BucData bucData = new BucData();
+    private S073 s073 = new S073();
     private final Map<String, Object> mapData = new HashMap<>();
     private final List<Map<String, Object>> listData = new ArrayList<>();
 
@@ -52,6 +55,8 @@ public class ExistingCaseControllerTest {
         mapData.put(CASE_ID_VALUE, "{test-data}");
         listData.add(mapData);
         bucData.setProcessDefinitionName("test");
+        s073.setSedGVer(4);
+        s073.setSedPackage("Sector");
     }
 
     @Test
@@ -73,7 +78,7 @@ public class ExistingCaseControllerTest {
                 .andExpect(handler().methodName("getCase"))
                 .andExpect(handler().handlerType(ExistingCaseController.class))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().string("{\"creator\":null,\"documents\":null,\"subject\":null,\"processDefinitionName\":\"test\",\"sensitive\":null,\"lastUpdate\":null,\"id\":null,\"applicationRoleId\":null,\"actions\":null,\"startDate\":null,\"processDefinitionVersion\":null,\"properties\":null,\"participants\":null,\"status\":null}"));
+                .andExpect(content().string("{\"serialVersionUID\":1,\"creator\":null,\"documents\":null,\"subject\":null,\"processDefinitionName\":\"test\",\"sensitive\":null,\"lastUpdate\":null,\"id\":null,\"applicationRoleId\":null,\"actions\":null,\"startDate\":null,\"processDefinitionVersion\":null,\"properties\":null,\"participants\":null,\"status\":null}"));
     }
 
     @Test
@@ -85,5 +90,16 @@ public class ExistingCaseControllerTest {
                 .andExpect(handler().handlerType(ExistingCaseController.class))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().string("[{\"1\":\"{test-data}\"}]"));
+    }
+
+    @Test
+    public void testGetS073Document() throws Exception {
+        given(rinaExistingCaseService.getS073Document(anyString(), anyString())).willReturn(s073);
+
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_GET_S073_DOCUMENT_URI + CASE_ID_VALUE + "/" + DOCUMENT_ID_VALUE))
+                .andExpect(handler().methodName("getS073Document"))
+                .andExpect(handler().handlerType(ExistingCaseController.class))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().string("{\"serialVersionUID\":1,\"sedPackage\":\"Sector\",\"sedGVer\":4,\"sedVer\":null,\"personFamilyName\":null,\"personForename\":null,\"personDateBirth\":null,\"personSex\":null,\"personFamilyNameAtBirth\":null,\"personForenameAtBirth\":null,\"Status\":null,\"Address\":null,\"InformationRegistration\":null,\"ConcernsDocument\":null,\"PeriodEntitlement\":null,\"Person\":null,\"IfPINNotProvidedForAnyInstitutionPleaseProvide\":null,\"AdditionalInformationPerson\":null,\"AddressOfPersonForWhomAnEntitlementDocumentRequete\":null,\"InsuredPerson\":null,\"AddressMainInsuredPerson\":null,\"StartingEndingDateRegistration\":null,\"ReasonForRefusalRegistration\":null,\"PINPersonInEachInstitution\":null}"));
     }
 }

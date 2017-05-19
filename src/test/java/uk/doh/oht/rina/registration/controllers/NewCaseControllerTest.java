@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import uk.doh.oht.rina.registration.domain.bucs.BucData;
+import uk.doh.oht.rina.domain.bucs.BucData;
 import uk.doh.oht.rina.registration.service.RinaExistingCaseService;
 
 import java.util.HashMap;
@@ -56,6 +56,6 @@ public class NewCaseControllerTest {
                 .andExpect(handler().methodName("createbuc01"))
                 .andExpect(handler().handlerType(NewCaseController.class))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().string("{\"creator\":null,\"documents\":null,\"subject\":null,\"processDefinitionName\":\"test\",\"sensitive\":null,\"lastUpdate\":null,\"id\":null,\"applicationRoleId\":null,\"actions\":null,\"startDate\":null,\"processDefinitionVersion\":null,\"properties\":null,\"participants\":null,\"status\":null}"));
+                .andExpect(content().string("{\"serialVersionUID\":1,\"creator\":null,\"documents\":null,\"subject\":null,\"processDefinitionName\":\"test\",\"sensitive\":null,\"lastUpdate\":null,\"id\":null,\"applicationRoleId\":null,\"actions\":null,\"startDate\":null,\"processDefinitionVersion\":null,\"properties\":null,\"participants\":null,\"status\":null}"));
     }
 }
