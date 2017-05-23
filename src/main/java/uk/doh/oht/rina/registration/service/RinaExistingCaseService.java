@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 import uk.doh.oht.rina.domain.OpenCaseSearchResult;
 import uk.doh.oht.rina.domain.bucs.BucData;
 import uk.doh.oht.rina.domain.documents.Document;
+import uk.doh.oht.rina.domain.documents.S072;
 import uk.doh.oht.rina.domain.documents.S073;
 import uk.doh.oht.rina.registration.config.RestProperties;
 
@@ -53,6 +54,13 @@ public class RinaExistingCaseService {
         final HttpEntity<String> entity = new HttpEntity<>(null, headers);
         final ResponseEntity<Document> data = restTemplate.exchange(restProperties.buildCasePath() + caseId + restProperties.getRestRootDocumentPath() + documentId, HttpMethod.GET, entity, new ParameterizedTypeReference<Document>() {});
         return data.getBody().getS073();
+    }
+
+    public S072 getS072Document(final String caseId, final String documentId) {
+        final HttpHeaders headers = serviceHelper.createTokenHeader();
+        final HttpEntity<String> entity = new HttpEntity<>(null, headers);
+        final ResponseEntity<Document> data = restTemplate.exchange(restProperties.buildCasePath() + caseId + restProperties.getRestRootDocumentPath() + documentId, HttpMethod.GET, entity, new ParameterizedTypeReference<Document>() {});
+        return data.getBody().getS072();
     }
 
     public List<Map<String, Object>> getAllCases() {

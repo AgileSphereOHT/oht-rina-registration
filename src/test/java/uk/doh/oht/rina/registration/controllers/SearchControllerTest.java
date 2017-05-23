@@ -55,6 +55,6 @@ public class SearchControllerTest {
                 .andExpect(handler().methodName("searchCases"))
                 .andExpect(handler().handlerType(SearchController.class))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().string("[{\"serialVersionUID\":1,\"processDefinitionId\":null,\"traits\":null,\"id\":null,\"applicationRoleId\":null,\"properties\":null,\"status\":null,\"dueDate\":null,\"countryCode\":\"UK\"}]"));
+                .andExpect(content().string("[{\"serialVersionUID\":1,\"processDefinitionId\":null,\"traits\":null,\"id\":null,\"applicationRoleId\":null,\"properties\":null,\"status\":null,\"dueDate\":null,\"countryCode\":\"UK\",\"countryDescription\":null}]"));
     }
 }
