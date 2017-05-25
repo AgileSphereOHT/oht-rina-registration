@@ -2,6 +2,7 @@ package uk.doh.oht.rina.registration.controllers;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 /**
  * Created by peterwhitehead on 28/04/2017.
  */
+@Slf4j
 @RestController
 public class NewCaseController {
     private final RinaExistingCaseService rinaExistingCaseService;
@@ -35,6 +37,11 @@ public class NewCaseController {
             @RequestBody
             @Valid final CustomerDetails customerDetails,
             final BindingResult bindingResult) {
-        return ResponseEntity.ok().body(rinaExistingCaseService.getCase("501"));
+        try {
+            log.info("Enter createbuc01");
+            return ResponseEntity.ok().body(rinaExistingCaseService.getCase("501"));
+        } finally {
+            log.info("Exit createbuc01");
+        }
     }
 }

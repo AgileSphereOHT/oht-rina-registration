@@ -1,6 +1,7 @@
 package uk.doh.oht.rina.registration.controllers;
 
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * Created by peterwhitehead on 03/05/2017.
  */
+@Slf4j
 @RestController
 public class NotificationController {
     private final RinaNotificationService rinaNotificationService;
@@ -30,8 +32,13 @@ public class NotificationController {
             value = "Gets a list of all notifications for date",
             notes = "Send a request to return notifications for date in RINA sub system"
     )
-    public ResponseEntity<List<Notification>> retrieveNotificationsForDate(@RequestParam Date date) {
-        return ResponseEntity.ok().body(rinaNotificationService.retrieveNotificationsForDate(date));
+    public ResponseEntity<List<Notification>> retrieveNotificationsForDate(@RequestParam final Date date) {
+        try {
+            log.info("Enter retrieveNotificationsForDate");
+            return ResponseEntity.ok().body(rinaNotificationService.retrieveNotificationsForDate(date));
+        } finally {
+            log.info("Exit retrieveNotificationsForDate");
+        }
     }
 
     @GetMapping(value = "/rina-registration/notifications-by-case", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -39,7 +46,12 @@ public class NotificationController {
             value = "Gets a list of all notifications for caseId",
             notes = "Send a request to return notifications for caseId in RINA sub system"
     )
-    public ResponseEntity<List<Notification>> retrieveNotificationsForCase(@RequestParam String caseId, @RequestParam Date date) {
-        return ResponseEntity.ok().body(rinaNotificationService.retrieveNotificationsForCase(caseId, date));
+    public ResponseEntity<List<Notification>> retrieveNotificationsForCase(@RequestParam final String caseId, @RequestParam final Date date) {
+        try {
+            log.info("Enter retrieveNotificationsForCase");
+            return ResponseEntity.ok().body(rinaNotificationService.retrieveNotificationsForCase(caseId, date));
+        } finally {
+            log.info("Exit retrieveNotificationsForCase");
+        }
     }
 }

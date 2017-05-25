@@ -34,19 +34,30 @@ public class RinaNotificationService {
     }
 
     public List<Notification> retrieveNotificationsForDate(final Date date) {
-        final HttpHeaders headers = serviceHelper.createTokenHeader();
-        final HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        final ResponseEntity<List<Notification>> data = restTemplate.exchange(restProperties.buildNotificationPath() + "?date=" + convertDateToString(date), HttpMethod.GET, entity, new ParameterizedTypeReference<List<Notification>>() {});
-        return data.getBody();
+        try {
+            log.info("Enter retrieveNotificationsForDate");
+            final HttpHeaders headers = serviceHelper.createTokenHeader();
+            final HttpEntity<String> entity = new HttpEntity<>(null, headers);
+            final ResponseEntity<List<Notification>> data = restTemplate.exchange(
+                    restProperties.buildNotificationPath() + "?date=" + convertDateToString(date), HttpMethod.GET, entity, new ParameterizedTypeReference<List<Notification>>() {});
+            return data.getBody();
+        } finally {
+            log.info("Exit retrieveNotificationsForDate");
+        }
     }
 
     public List<Notification> retrieveNotificationsForCase(final String caseId, final Date date) {
-        final HttpHeaders headers = serviceHelper.createTokenHeader();
-        final HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        final ResponseEntity<List<Notification>> data = restTemplate.exchange(
-                restProperties.buildNotificationPath() + "?date=" + convertDateToString(date) + "&caseId=" + caseId, HttpMethod.GET, entity,
-                new ParameterizedTypeReference<List<Notification>>() {});
-        return data.getBody();
+        try {
+            log.info("Enter retrieveNotificationsForCase");
+            final HttpHeaders headers = serviceHelper.createTokenHeader();
+            final HttpEntity<String> entity = new HttpEntity<>(null, headers);
+            final ResponseEntity<List<Notification>> data = restTemplate.exchange(
+                    restProperties.buildNotificationPath() + "?date=" + convertDateToString(date) + "&caseId=" + caseId, HttpMethod.GET, entity,
+                    new ParameterizedTypeReference<List<Notification>>() {});
+            return data.getBody();
+        } finally {
+            log.info("Exit retrieveNotificationsForCase");
+        }
     }
 
     private String convertDateToString(final Date date) {
@@ -59,11 +70,16 @@ public class RinaNotificationService {
     }
 
     public List<TimeSlot> retrieveTimeSlotsForCase(final String caseId) {
-        final HttpHeaders headers = serviceHelper.createTokenHeader();
-        final HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        final ResponseEntity<List<TimeSlot>> data = restTemplate.exchange(
-                restProperties.buildNotificationPath() + "TimeSlots?caseId=" + caseId, HttpMethod.GET, entity,
-                new ParameterizedTypeReference<List<TimeSlot>>() {});
-        return data.getBody();
+        try {
+            log.info("Enter retrieveTimeSlotsForCase");
+            final HttpHeaders headers = serviceHelper.createTokenHeader();
+            final HttpEntity<String> entity = new HttpEntity<>(null, headers);
+            final ResponseEntity<List<TimeSlot>> data = restTemplate.exchange(
+                    restProperties.buildNotificationPath() + "TimeSlots?caseId=" + caseId, HttpMethod.GET, entity,
+                    new ParameterizedTypeReference<List<TimeSlot>>() {});
+            return data.getBody();
+        } finally {
+            log.info("Exit retrieveTimeSlotsForCase");
+        }
     }
 }

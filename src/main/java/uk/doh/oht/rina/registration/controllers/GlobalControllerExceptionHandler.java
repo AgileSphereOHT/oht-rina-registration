@@ -24,7 +24,7 @@ public class GlobalControllerExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Exception.class)
     public void handleValidationFailure(Exception e) {
-        log.error("{}", e);
+        log.error("{}", e.getMessage(), e);
         // Nothing to do
     }
 }
