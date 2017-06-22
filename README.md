@@ -47,7 +47,7 @@ It wraps RINA endpoints, with responses are serialized to and from json via doma
 
 For the domain objects Lombok is being used to reduce the boilerplate code and keep the code clean.
 
-The Restful interface is documented via Swagger (**find url to access generated documentation**)
+The Restful interface is documented via Swagger ( http://<baseurl>/swagger-ui.html )
 
 ### Build
 
